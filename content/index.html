@@ -1,0 +1,31 @@
+<html>
+
+<body>
+  <h1>Azure SignalR Serverless Sample</h1>
+  <ul id="messages"></ul>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.min.js"></script>
+  <script>
+    const apiBaseUrl = window.location.origin;
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl(apiBaseUrl + '/api')
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+    
+    connection.on("connected", function (state) {
+        console.log("SignalR connection state changed to: " + state.newState);
+    });
+    
+    connection.on('newMessage', (message) => {
+        const node = document.createElement("li");
+        const textnode = document.createTextNode("New message: " + message.message);
+
+        node.appendChild(textnode);
+        document.getElementById("messages").appendChild(node);
+    });
+    
+    connection.start()
+    .catch(console.error);
+  </script>
+</body>
+
+</html>
