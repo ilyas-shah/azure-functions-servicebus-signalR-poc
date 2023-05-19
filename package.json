@@ -1,13 +1,19 @@
 {
-  "name": "",
+  "name": "demo-app",
   "version": "1.0.0",
   "description": "",
+  "main": "dist/functions/**/*.js",
   "scripts": {
-    "start": "func start",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "start:host": "func start",
+    "start": "npm run start:host & npm run watch",
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
-    "@azure/service-bus": "^7.9.0"
+    "@azure/functions": "^4.0.0-alpha.10",
+    "@azure/service-bus": "^7.9.0",
+    "typescript": "^5.0.4"
   },
   "devDependencies": {
     "azure-functions-core-tools": "^4.x"
